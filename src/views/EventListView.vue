@@ -11,7 +11,7 @@ onMounted(() => {
   axios
     .get('https://my-json-server.typicode.com/vidchayada/Lab02-db-json/events')
     .then((response) => {
-      console.log(response.data)
+      events.value = response.data
     })
     .catch((error) => {
       console.error('There was an error!', error)
