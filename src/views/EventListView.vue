@@ -4,7 +4,9 @@ import EventInfo from '@/components/EventInfo.vue'
 import type { Event } from '@/types'
 import { ref, onMounted, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const events = ref<Event[] | null>(null)
 const totalEvents = ref(0)
 const hasNextPage = computed(() => {
@@ -19,8 +21,8 @@ const page = computed(() => props.page)
 const perPage = computed(() => props.perPage)
 
 onMounted(() => {
+  events.value = null
   watchEffect(() => {
-    events.value = null
     EventService.getEvents(perPage.value, page.value)
       .then((response) => {
         events.value = response.data
